@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.setya'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:7.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    testImplementation 'io.rest-assured:rest-assured:4.3.3'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.4.0'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
+}
+
+tasks.register("runApiTests", Test) {
+    group = "verification"
+    description = "Runs API tests tagged with @api"
+    useJUnitPlatform {
+        includeTags("api")
+    }
+    outputs.upToDateWhen { false }
+}
+
+tasks.register("runWebTests", Test) {
+    group = "verification"
+    description = "Runs Web tests tagged with @web"
+    useJUnitPlatform {
+        includeTags("web")
+    }
+    outputs.upToDateWhen { false }
+}
+
+test {
+    systemProperty "cucumber.plugin", "json:cucumber-reports/report.json,html:cucumber-reports/report.html"
+}
