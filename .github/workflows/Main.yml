@@ -43,8 +43,8 @@ jobs:
       - name: Run Web tests
         run: ./gradlew runWebTests
 
-      - name: Upload Cucumber Reports
+      - name: Upload Tests Reports
         uses: actions/upload-artifact@v3
         with:
-          name: cucumber-reports
-          path: cucumber-reports/
+          name: tests-reports
+          path: build/reports/tests/
